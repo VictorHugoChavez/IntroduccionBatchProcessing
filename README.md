@@ -57,3 +57,29 @@ Si bien es cierto que Spring Frameworj es muy potente, la configuracion inicial 
 - Una vez añadimos un starter, este nos proporciona todas las dependencias que necesitamos, tanto de Spring como de terceros
 
 ---
+
+# SPRING BATCH
+### ¿Que es?
+Es un  framework ligero open source para procesamientos batch o procesamientos por lotes. Este framework es un modulo de Spring y fue desarrollado como fruto de una colaboracion entre SrpingSource (ahora Pivotal) y **Accenture**
+
+### Cuales son los compoenetes principales de Spring Batch
+
+- **Job Launcher** Es el componente encargado de la persistencia de metadatos
+
+- **Job** Es la presentacion del proceso, un proceso, a su vez, es un contenedor de pasos (steps).
+- **Step** Un step (paso) es un elemento independiente dentro de un job (un proceso) que representa una de las fases de las que esta compuesto dicho proceso. Un proceso (Job) debe tener, al menos, un step.
+- **ItemReader** Elemento responsables de leer datos de una fuente de datos (BBDD, Fichero, cola de mensajes, etc...).
+
+- **ItenProcessor** Elemento responsable tratar la informacion obtenida por el reader. No es obligatorio su uso
+- **ItemWriter** Elemento responsable de guardar la informacion leida por reader o trata por el processor. Si hay un reader debe haber un writer. 
+
+![ComponetesPrincipales](./src/img/CoponetesPrincipales.drawio.png)
+
+# CHUNK-ORIENTED PROCESSING
+Chunk-Oriented es la tecnica que utiliza Spring Batch para ala ejecucion de las fases de un proceso (notese que es posible no utilizar en todos los steps este enfoque)
+![Chunk](./src/img/Chunk-OrientedProcessing.png)
+
+### Funcionando de la siguinete manera...
+
+El reader (en el punto anterior vimos que un step posia contener un reader, un writer y un processor) lee una procion de datos de la fuente de datos y los convierte en un <<chunck>> (entidad que representa esa porcion de infromacion leída). Si existe un processor, ese chunk pasa al processor para que lo trate. Todo esto se realiza dentro de un limite transaccional o, lo que es lo mismo, leemos y tratamos tantos chunks como queramos antes de que sean persistidos por writer.
+![ChnckProccesing](./src/img/chunk-oriented-processing-with-item-processor.png)
