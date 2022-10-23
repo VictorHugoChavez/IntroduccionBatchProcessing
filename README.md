@@ -75,11 +75,77 @@ Es un  framework ligero open source para procesamientos batch o procesamientos p
 
 ![ComponetesPrincipales](./src/img/CoponetesPrincipales.drawio.png)
 
-# CHUNK-ORIENTED PROCESSING
+## CHUNK-ORIENTED PROCESSING
 Chunk-Oriented es la tecnica que utiliza Spring Batch para ala ejecucion de las fases de un proceso (notese que es posible no utilizar en todos los steps este enfoque)
 ![Chunk](./src/img/Chunk-OrientedProcessing.png)
 
 ### Funcionando de la siguinete manera...
 
-El reader (en el punto anterior vimos que un step posia contener un reader, un writer y un processor) lee una procion de datos de la fuente de datos y los convierte en un <<chunck>> (entidad que representa esa porcion de infromacion leída). Si existe un processor, ese chunk pasa al processor para que lo trate. Todo esto se realiza dentro de un limite transaccional o, lo que es lo mismo, leemos y tratamos tantos chunks como queramos antes de que sean persistidos por writer.
+El reader (en el punto anterior vimos que un step posia contener un reader, un writer y un processor) lee una procion de datos de la fuente de datos y los convierte en un <<chunck>> (entidad que representa esa porcion de infromacion leída).
+Si existe un processor, ese chunk pasa al processor para que lo trate. Todo esto se realiza dentro de un limite transaccional o, lo que es lo mismo, leemos y tratamos tantos chunks como queramos antes de que sean persistidos por writer.
+
 ![ChnckProccesing](./src/img/chunk-oriented-processing-with-item-processor.png)
+
+
+## Proceso de instalacion para utilizar Spring Batch
+
+Para poder utilizar Spring batach se requiere instalar los siguinetes programas dejando los links y leer la documentacion indicada
+
+- [Java](https://www.oracle.com/java/technologies/downloads/)
+- [Git](https://git-scm.com/)
+- [Intelli Idea](https://www.jetbrains.com/idea/)
+- [SDK](https://sdkman.io/install) 
+- [Gradle](https://gradle.org/)
+
+para lo que es **sdk** en caso de poder instalarlo hay que realizar los siguinete pasos que indica que tienes que hacer en caso de poder instalarlo [StackoverflowSDK](https://stackoverflow.com/questions/38782928/how-to-add-man-and-zip-to-git-bash-installation-on-windows) 
+
+## Iniciando con el proyecto
+
+Descargar el proyecto  atraves del siguienete repositorio d ela documentacion [SpringBatch](https://github.com/spring-guides/gs-batch-processing) o en su defecto clonar dicho repositorio y utilizarlo para fines de aprendizaje
+
+```git
+git@github.com:spring-guides/gs-batch-processing.git
+```
+### Analizando el proyecto
+ Primero nos vamos al archivo donde se encontrara atraves en la siguiente ubiocacion del archivo **complete\src\main\java\com\example\batchprocessing\person.java** y se ecncontrara la siguinete informacion
+
+```java
+package com.example.batchprocessing;
+
+public class Person {
+
+	private String lastName;
+	private String firstName;
+
+	public Person() {
+	}
+
+	public Person(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	@Override
+	public String toString() {
+		return "firstName: " + firstName + ", lastName: " + lastName;
+	}
+
+}
+
+```
